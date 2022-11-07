@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Button } from 'react-native'
 import React from 'react'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
-    <View>
+    <View style={{display: 'flex', justifyContent: 'center', alignContent: 'center', flex: 1}}>
       <Text>HomeScreen</Text>
+      <Button title="Go to AdvanceRegister" onPress={() => navigation.navigate('AdvancedRegistration')} />
+      <Button title="Go to QuickRegister" onPress={() => navigation.navigate('QuickRegistration')} />
     </View>
   )
 }

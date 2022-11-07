@@ -1,7 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../../../screens/Client/HomeTab";
-
+import AdvancedRegistrationScreen from "../../../screens/Client/HomeTab/Registrations/AdvancedRegistration";
+import QuickRegistrationScreen from "../../../screens/Client/HomeTab/Registrations/QuickRegistration";
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
@@ -24,6 +25,20 @@ const HomeStack = () => {
         }}
         name="Home"
         component={HomeScreen}
+      />
+      <Stack.Screen
+        options={{
+          title: "Registro Rápido",
+        }}
+        name="QuickRegistration"
+        component={QuickRegistrationScreen}
+      />
+      <Stack.Screen
+        options={{
+          title: "Registro Avanzado",
+        }}
+        name="AdvancedRegistration"
+        component={AdvancedRegistrationScreen}
       />
     </Stack.Navigator>
   );
