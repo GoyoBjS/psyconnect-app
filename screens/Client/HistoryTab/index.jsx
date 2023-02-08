@@ -100,7 +100,7 @@ const HistoryScreen = () => {
     },
   ]);
 // Podemos cambiar este sort por el timestamp cuando lo tengamos
-  let sortedData = data.sort((a, b) => new Date(b.date + b.time).getTime() - new Date(a.date + b.time).getTime());
+  let sortedData = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   let newData = Object.values(
     sortedData.reduce((acc, item) => {
