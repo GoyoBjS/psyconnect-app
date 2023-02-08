@@ -1,7 +1,10 @@
 export default function getFullDescriptionOfDate(date: Date): string {
-    const day = new Date(date).getDay();
+  console.log(date);
+    const day = new Date(date).getDate();
     const month = new Date(date).getMonth();
     const year = new Date(date).getFullYear();
+    const weekDay = new Date(date).getDay();
+
     const dayName = [
       "Domingo",
       "Lunes",
@@ -26,18 +29,18 @@ export default function getFullDescriptionOfDate(date: Date): string {
       "Diciembre",
     ];
     if (
-      day === new Date().getDay() &&
+      day === new Date().getDate() &&
       month === new Date().getMonth() &&
       year === new Date().getFullYear()
     ) {
       return "Hoy";
     } else if (
-      day === new Date().getDay() - 1 &&
+      day === new Date().getDate() - 1 &&
       month === new Date().getMonth() &&
       year === new Date().getFullYear()
     ) {
       return "Ayer";
     } else {
-      return `${dayName[day]}, ${day} de ${monthName[month]} del ${year}`;
+      return `${dayName[weekDay]}, ${day} de ${monthName[month]} del ${year}`;
     }
   };

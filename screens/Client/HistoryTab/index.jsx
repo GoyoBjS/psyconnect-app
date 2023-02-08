@@ -47,10 +47,10 @@ const HistoryScreen = () => {
     {
       id: 4,
       feeling: "Enfadado",
-      reason: "No se",
+      reason: "No seeeee",
       date: "2021/06/01",
       time: "16:00",
-      timestamp: 1668022540800,
+      timestamp: 1668012530800,
       solution: "No",
     },
     {
@@ -84,15 +84,26 @@ const HistoryScreen = () => {
       id: 7,
       feeling: "Lo que sea",
       reason: "No se",
-      date: "2023/02/01",
+      date: "2023/02/05",
       time: "16:00",
       timestamp: 1619827200,
       solution: "No",
     },
+    {
+      id: 7,
+      feeling: "Lo que seaaaaaaa",
+      reason: "No seeee",
+      date: "2023/02/05",
+      time: "17:00",
+      timestamp: 1619827200,
+      solution: "No",
+    },
   ]);
+// Podemos cambiar este sort por el timestamp cuando lo tengamos
+  let sortedData = data.sort((a, b) => new Date(b.date + b.time).getTime() - new Date(a.date + b.time).getTime());
 
   let newData = Object.values(
-    data.reduce((acc, item) => {
+    sortedData.reduce((acc, item) => {
       if (!acc[item.date]) {
         acc[item.date] = {
           date: getFullDescriptionOfDate(item.date),
@@ -103,6 +114,7 @@ const HistoryScreen = () => {
       return acc;
     }, {})
   );
+    console.log(newData.date);
 
   const getImage = (feeling) => {
     switch (feeling) {
@@ -179,6 +191,7 @@ const HistoryScreen = () => {
   };
 
   const renderSectionHeader = ({ section: { date } }) => {
+    console.log(date);
     return (
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionHeaderText}>{date}</Text>
