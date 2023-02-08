@@ -14,7 +14,7 @@ import { feelings } from "../../../components/feelings";
 
 const WIDTH = Dimensions.get("window").width;
 
-const HistoryScreen = () => {
+const HistoryScreen = ({navigation}) => {
   const [selectedFeeling, setSelectedFeeling] = useState(null);
   const [data, setData] = useState([
     {
@@ -228,6 +228,7 @@ const HistoryScreen = () => {
 
   const handlePress = (item) => {
     console.log(item);
+    navigation.push("EditRegisterScreen", { item });
   };
   const handleFeelingPress = (feeling) => {
     if (selectedFeeling === feeling) {

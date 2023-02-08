@@ -1,6 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HistoryScreen from "../../../screens/Client/HistoryTab";
+import EditRegisterScreen from "../../../screens/Client/HistoryTab/EditRegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,20 @@ const HistoryStack = () => {
         }}
         name="Historial"
         component={HistoryScreen}
+      />
+
+      <Stack.Screen
+        options={{
+          headerStyle: {
+            backgroundColor: "#f4511e",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+        name="EditRegisterScreen"
+        component={EditRegisterScreen}
       />
     </Stack.Navigator>
   );
