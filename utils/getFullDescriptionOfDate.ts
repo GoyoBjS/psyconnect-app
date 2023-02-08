@@ -1,46 +1,55 @@
-export default function getFullDescriptionOfDate(date: Date): string {
-  console.log(date);
-    const day = new Date(date).getDate();
-    const month = new Date(date).getMonth();
-    const year = new Date(date).getFullYear();
-    const weekDay = new Date(date).getDay();
+interface DateDesc {
+  day: number;
+  month: number;
+  year: number;
+  weekDay: number;
+}
 
-    const dayName = [
-      "Domingo",
-      "Lunes",
-      "Martes",
-      "Miércoles",
-      "Jueves",
-      "Viernes",
-      "Sábado",
-    ];
-    const monthName = [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ];
-    if (
-      day === new Date().getDate() &&
-      month === new Date().getMonth() &&
-      year === new Date().getFullYear()
-    ) {
-      return "Hoy";
-    } else if (
-      day === new Date().getDate() - 1 &&
-      month === new Date().getMonth() &&
-      year === new Date().getFullYear()
-    ) {
-      return "Ayer";
-    } else {
-      return `${dayName[weekDay]}, ${day} de ${monthName[month]} del ${year}`;
-    }
+export default function getFullDescriptionOfDate(date: Date): string {
+
+  const DateDesc: DateDesc = {
+    day: new Date(date).getDate(),
+    month: new Date(date).getMonth(),
+    year: new Date(date).getFullYear(),
+    weekDay: new Date(date).getDay(),
   };
+
+  const dayName: Array<String> = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+  ];
+  const monthName: Array<String> = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  if (
+    DateDesc.day === new Date().getDate() &&
+    DateDesc.month === new Date().getMonth() &&
+    DateDesc.year === new Date().getFullYear()
+  ) {
+    return "Hoy";
+  } else if (
+    DateDesc.day === new Date().getDate() - 1 &&
+    DateDesc.month === new Date().getMonth() &&
+    DateDesc.year === new Date().getFullYear()
+  ) {
+    return "Ayer";
+  } else {
+    return `${dayName[DateDesc.weekDay]}, ${DateDesc.day} de ${monthName[DateDesc.month]} del ${DateDesc.year}`;
+  }
+};

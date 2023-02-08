@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { View } from 'react-native'
 import React, {useState} from 'react'
 import FeelingsScreen from './Steps/FeelingsScreen'
 import ReasonScreen from './Steps/ReasonScreen'
@@ -19,7 +19,6 @@ const AdvancedRegistrationScreen = () => {
     })
   return (
     <View>
-      <Text>HomeScreen</Text>
       {step === 1 && <FeelingsScreen data={data} setData={setData} setStep={setStep} />}
       {step === 2 && <ReasonScreen data={data} setData={setData} setStep={setStep} />}
       {step === 3 && <DateTimeScreen data={data} setData={setData} setStep={setStep} />}
@@ -30,5 +29,3 @@ const AdvancedRegistrationScreen = () => {
 }
 
 export default AdvancedRegistrationScreen
-
-const styles = StyleSheet.create({})

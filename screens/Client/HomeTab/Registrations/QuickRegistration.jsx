@@ -13,7 +13,6 @@ const QuickRegistrationScreen = () => {
     })
   return (
     <View>
-      <Text>QuickRegistrationScreen</Text>
       {step === 1 && <FeelingsScreen data={data} setData={setData} setStep={setStep} />}
       {step === 2 && <ReasonScreen data={data} setData={setData} setStep={setStep} />}
         {/* Here we take the time when the data is sent */}

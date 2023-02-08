@@ -82,7 +82,7 @@ const HistoryScreen = ({navigation}) => {
     },
     {
       id: 7,
-      feeling: "Lo que sea",
+      feeling: "Feliz",
       reason: "No se",
       date: "2023/02/05",
       time: "16:00",
@@ -91,7 +91,7 @@ const HistoryScreen = ({navigation}) => {
     },
     {
       id: 7,
-      feeling: "Lo que seaaaaaaa",
+      feeling: "Triste",
       reason: "No seeee",
       date: "2023/02/05",
       time: "17:00",
@@ -109,7 +109,7 @@ const HistoryScreen = ({navigation}) => {
     },
     {
       id: 7,
-      feeling: "Lo que sea",
+      feeling: "Cansado",
       reason: "No se",
       date: "2023/02/08",
       time: "16:00",
@@ -118,7 +118,7 @@ const HistoryScreen = ({navigation}) => {
     },
     {
       id: 7,
-      feeling: "Lo que seaaaaaaa",
+      feeling: "Deprimido",
       reason: "No seeee",
       date: "2023/02/07",
       time: "17:00",
@@ -143,61 +143,20 @@ const HistoryScreen = ({navigation}) => {
   );
     console.log(newData.date);
 
-  const getImage = (feeling) => {
-    switch (feeling) {
-      case "Triste":
-        return require("../../../assets/feelings/sad.png");
-      // case "Cansado":
-      //   return require("../../../assets/feelings/tired.png");
-      case "Enfadado":
-        return require("../../../assets/feelings/angry.png");
-      // case "Depresivo":
-      //   return require("../../../assets/feelings/depressed.png");
-      // case "Culpable":
-      //   return require("../../../assets/feelings/guilt.png");
-      // case "Solo":
-      //   return require("../../../assets/feelings/lonely.png");
-      // case "Estresado":
-      //   return require("../../../assets/feelings/stressed.png");
-      default:
-        return require("../../../assets/feelings/sad.png");
-    }
-  };
-
-  const getBackgroundColor = (feeling) => {
-    switch (feeling) {
-      case "Triste":
-        return "#667EFF";
-      // case "Cansado":
-      //   return "#CCBB34";
-      case "Enfadado":
-        return "#F4C534";
-      // case "Ansioso":
-      //   return "#667EFF";
-      // case "Depresivo":
-      //   return "#DDCC34";
-      // case "Culpable":
-      //   return "#06C60E";
-      // case "Solo":
-      //   return "#CCBB34";
-      // case "Estresado":
-      //   return "#CCBB34";
-      default:
-        return "#F364FF";
-    }
-  };
-
   const renderItem = ({ item }) => {
+    
+    const feeling = feelings.find((feeling) => feeling.name === item.feeling);
+    
     return (
       <Pressable
         style={[
           styles.card,
-          { backgroundColor: getBackgroundColor(item.feeling) },
+          { backgroundColor: feeling?.color },
         ]}
         onPress={() => handlePress(item)}
       >
         <Image
-          source={getImage(item.feeling)}
+          source={feeling?.image}
           style={styles.cardImage}
           resizeMode="contain"
           resizeMethod="resize"
