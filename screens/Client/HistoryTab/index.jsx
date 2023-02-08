@@ -80,6 +80,15 @@ const HistoryScreen = () => {
       timestamp: 1668022540800,
       solution: "No",
     },
+    {
+      id: 7,
+      feeling: "Lo que sea",
+      reason: "No se",
+      date: "2023/02/01",
+      time: "16:00",
+      timestamp: 1619827200,
+      solution: "No",
+    },
   ]);
 
   let newData = Object.values(
@@ -195,7 +204,11 @@ const HistoryScreen = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Registros</Text>
       </View>
-      <ScrollView horizontal={true} style={styles.feelingsContainer}>
+      <ScrollView 
+      horizontal={true} 
+      showsHorizontalScrollIndicator={false}
+      style={styles.feelingsContainer}
+      >
         {feelings.map((feeling) => (
           <Pressable
             style={[
@@ -233,7 +246,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: "#F5F5F5",
-    marginTop: 72,
+    marginTop: 12,
     marginBottom: 0,
   },
   titleContainer: {
@@ -244,6 +257,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 36,
+    fontWeight: "bold",
+    color: "#3253FF",
+  },
+  sectionHeader: {
+    backgroundColor: "#F5F5F5",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  sectionHeaderText: {
+    fontSize: 28,
     fontWeight: "bold",
     color: "#3253FF",
   },
@@ -273,13 +296,6 @@ const styles = StyleSheet.create({
   selectedFeelingText: {
     color: "white",
   },
-  sectionHeaderText: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#3253FF",
-    marginLeft: 20,
-    marginVertical: 16,
-  },
   card: {
     display: "flex",
     flexDirection: "row",
@@ -288,7 +304,7 @@ const styles = StyleSheet.create({
     width: WIDTH * 0.95,
     height: 100,
     marginHorizontal: 12,
-    marginVertical: 4,
+    marginVertical: 8,
     borderRadius: 16,
     backgroundColor: "#667EFF",
     shadowColor: "#000",
