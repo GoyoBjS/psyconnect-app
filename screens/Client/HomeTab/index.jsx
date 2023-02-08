@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 72,
+    marginTop: 16,
     marginBottom: 16,
     marginLeft: 20,
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   card: {
     paddingHorizontal: 18,
-    paddingVertical: 40,
+    paddingVertical: 24,
     width: WIDTH * 0.95,
     height: HEIGHT * 0.35,
     margin: 12,
@@ -122,10 +122,10 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   cardTitle: {
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: "bold",
     color: "#fff",
-    marginBottom: 32,
+    marginBottom: 16,
   },
   cardDescription: {
     fontSize: 19,

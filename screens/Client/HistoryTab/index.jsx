@@ -98,6 +98,33 @@ const HistoryScreen = () => {
       timestamp: 1619827200,
       solution: "No",
     },
+    {
+      id: 7,
+      feeling: "Enfadado",
+      reason: "No se",
+      date: "2021/06/01",
+      time: "16:00",
+      timestamp: 1668022540800,
+      solution: "No",
+    },
+    {
+      id: 7,
+      feeling: "Lo que sea",
+      reason: "No se",
+      date: "2023/02/08",
+      time: "16:00",
+      timestamp: 1619827200,
+      solution: "No",
+    },
+    {
+      id: 7,
+      feeling: "Lo que seaaaaaaa",
+      reason: "No seeee",
+      date: "2023/02/07",
+      time: "17:00",
+      timestamp: 1619827200,
+      solution: "No",
+    },
   ]);
 // Podemos cambiar este sort por el timestamp cuando lo tengamos
   let sortedData = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
