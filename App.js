@@ -10,7 +10,7 @@ export default function App() {
     {/* <ThemeProvider> */}
     <StatusBar
           animated={true}
-          backgroundColor={{backgroundColor: '#fff'}}
+          backgroundColor={{backgroundColor: '#F5F5F5'}}
           barStyle="dark-content"
           hidden={false}
         />

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import Profile from "../../screens/client/profileTab";
 // import Home from "../../screens/client/homeTab";
 import ClientTabs from "./ClientTabs";
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 
 const ClientNavigation = () => {
   const Stack = createNativeStackNavigator();
