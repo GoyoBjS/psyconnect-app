@@ -1,8 +1,10 @@
+import { ImageRequireSource } from 'react-native';
+
 interface Feelings {
     id: number;
     name: string;
     color: string;
-    image?: any;
+    image: ImageRequireSource;
 }
 
 export const feelings : Array<Feelings> = [
@@ -46,7 +48,7 @@ export const feelings : Array<Feelings> = [
         id: 7,
         name: 'Aburrido',
         color: '#808080',
-        // image: require('../assets/feelings/bored.png'),
+        image: require('../assets/feelings/aburrido.png'),
     },
     {
         id: 8,
@@ -54,24 +56,24 @@ export const feelings : Array<Feelings> = [
         color: '#CCBB34',
         image: require('../assets/feelings/cansado.png'),
     },
-    {
-        id: 9,
-        name: 'Solo',
-        color: '#000080',
-        // image: require('../assets/feelings/lonely.png'),
-    },
+    // {
+    //     id: 9,
+    //     name: 'Solo',
+    //     color: '#000080',
+    //     // image: require('../assets/feelings/lonely.png'),
+    // },
     {
         id: 10,
         name: 'Nervioso',
         color: '#FFFF00',
-        // image: require('../assets/feelings/nervous.png'),
+        image: require('../assets/feelings/nervioso.png'),
     },
-    {
-        id: 11,
-        name: 'Frustrado',
-        color: '#000080',
-        // image: require('../assets/feelings/frustrated.png'),
-    },
+    // {
+    //     id: 11,
+    //     name: 'Frustrado',
+    //     color: '#000080',
+    //     // image: require('../assets/feelings/frustrated.png'),
+    // },
     {
         id: 12,
         name: 'Deprimido',
@@ -97,6 +99,7 @@ export const feelings : Array<Feelings> = [
         id: 16,
         name: 'Celoso',
         color: '#00FFFF',
+        image: require('../assets/feelings/celoso.png'),
     },
     // {
     //     id: 17,
@@ -107,6 +110,7 @@ export const feelings : Array<Feelings> = [
         id: 18,
         name: 'Emocionado',
         color: '#FFA07A',
+        image: require('../assets/feelings/emocionado.png'),
     },
     // {
     //     id: 19,
@@ -133,6 +137,7 @@ export const feelings : Array<Feelings> = [
         id: 23,
         name: 'Relajado',
         color: '#E0FFFF',
+        image: require('../assets/feelings/relajado.png'),
     },
     // {
     //     id: 24,
