@@ -1,5 +1,5 @@
 import React from 'react';
-// import './config/firebase';
+import './config/firebase';
 import RootNavigation from './navigation';
 import { SafeAreaView, StatusBar } from "react-native";
 // import { ThemeProvider } from 'react-native-elements';
@@ -10,7 +10,7 @@ export default function App() {
     {/* <ThemeProvider> */}
     <StatusBar
           animated={true}
-          backgroundColor={{backgroundColor: '#F5F5F5'}}
+          backgroundColor={'#F5F5F5'}
           barStyle="dark-content"
           hidden={false}
         />
