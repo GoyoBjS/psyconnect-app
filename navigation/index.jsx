@@ -1,12 +1,18 @@
 import React from "react";
-// import { useAuthentication } from '../utils/hooks/useAuthentication';
+import { useAuthentication } from "../hooks/useAuthentication";
 import ClientNavigation from "./ClientNavigation";
-import AuthNavigation from "./AuthNavigation";
+import AuthStack from "./AuthNavigation";
+// import Loading from "../components/Loading";
+import {SafeAreaView, View, Text} from "react-native";
 
 export default function RootNavigation() {
-  //   const { user } = useAuthentication();
-  const user = true;
-  console.log(user);
+  const { user, loading } = useAuthentication();
 
-  return user ? <ClientNavigation /> : <AuthNavigation />;
+  if (loading) return <View><Text>Loading.........</Text></View>;
+  return user ?
+      <ClientNavigation /> :
+      <SafeAreaView style={{ flex: 1 }}>
+        <AuthStack />
+      </SafeAreaView>;
+
 }
