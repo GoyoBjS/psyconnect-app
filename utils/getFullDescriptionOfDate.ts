@@ -5,7 +5,7 @@ interface DateDesc {
   weekDay: number;
 }
 
-export default function getFullDescriptionOfDate(date: Date): string {
+export default function getFullDescriptionOfDate(date: string): string {
 
   const DateDesc: DateDesc = {
     day: new Date(date).getDate(),
