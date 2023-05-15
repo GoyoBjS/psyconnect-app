@@ -1,19 +1,17 @@
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import React from 'react'
+interface Props {
+    item: any;
+    handlePress: (item: any) => void;
+}
 
-const ItemCard = ({ item, selectedItem, setSelectedItem, setData, setStep }) => {
+const ItemCard = ({ item, handlePress }: Props) => {
 
-    const handlePress = () => {
-        setSelectedItem(item.name)
-        setData((prevData) => ({ ...prevData, feeling: item.name }));
-        setStep(2);
-    }
   return (
     <Pressable onPress={handlePress}
             style={[
               styles.itemCard,
               { backgroundColor: item?.color },
-              { borderColor: selectedItem === item.name ? "#000" : "#fff" },
             ]}
           >
             <View>
