@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
-
-const HeaderRegister = ({title}) => {
+interface Props {
+    title: string;
+}
+const HeaderRegister = ({title}: Props) => {
   return (
     <View style={styles.titleContainer}>
       <Ionicons name="arrow-back-outline" size={42} color="#3253FF" />
