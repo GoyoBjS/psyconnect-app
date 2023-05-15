@@ -1,149 +1,77 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  Pressable,
-  Image,
-  SectionList,
-  ScrollView,
-} from "react-native";
-import React, { useState } from "react";
+import {Button, Dimensions, Image, Pressable, ScrollView, SectionList, StyleSheet, Text, View} from "react-native";
+import React, {useEffect, useState} from "react";
 import getFullDescriptionOfDate from "../../../utils/getFullDescriptionOfDate";
-import { feelings } from "../../../components/feelings";
+import {feelings} from "../../../components/feelings";
+import {getAuth} from "firebase/auth";
+import getDateFromTimstamp from "../../../utils/getDateFromTimestamp";
+import {collection, doc, getDocs, orderBy, query, updateDoc, where} from "firebase/firestore";
+import {db} from "../../../config/firebase";
+import useUser from "../../../hooks/useUser";
 
 const WIDTH = Dimensions.get("window").width;
 
-const HistoryScreen = ({navigation}) => {
-  const [selectedFeeling, setSelectedFeeling] = useState(null);
-  const [data, setData] = useState([
-    {
-      id: 1,
-      feeling: "Triste",
-      reason: "No tengo amigos",
-      date: "2022/11/09",
-      time: "12:00",
-      timestamp: 1619827200,
-      solution: "Hacer ejercicio",
-    },
-    {
-      id: 2,
-      feeling: "Triste",
-      reason: "No tengo amigos",
-      date: "2022/11/08",
-      time: "12:00",
-      timestamp: 1619827200,
-      solution: "No",
-    },
-    {
-      id: 3,
-      feeling: "Cansado",
-      reason: "No se",
-      date: "2021/06/01",
-      time: "16:00",
-      timestamp: 1622540800,
-      solution: "No",
-    },
-    {
-      id: 4,
-      feeling: "Enfadado",
-      reason: "No seeeee",
-      date: "2021/06/01",
-      time: "16:00",
-      timestamp: 1668012530800,
-      solution: "No",
-    },
-    {
-      id: 5,
-      feeling: "Enfadado",
-      reason: "No se",
-      date: "2021/06/01",
-      time: "16:00",
-      timestamp: 1668022540800,
-      solution: "No",
-    },
-    {
-      id: 6,
-      feeling: "Enfadado",
-      reason: "No se",
-      date: "2021/06/01",
-      time: "16:00",
-      timestamp: 1668022540800,
-      solution: "No",
-    },
-    {
-      id: 7,
-      feeling: "Enfadado",
-      reason: "No se",
-      date: "2021/06/01",
-      time: "16:00",
-      timestamp: 1668022540800,
-      solution: "No",
-    },
-    {
-      id: 7,
-      feeling: "Feliz",
-      reason: "No se",
-      date: "2023/02/05",
-      time: "16:00",
-      timestamp: 1619827200,
-      solution: "No",
-    },
-    {
-      id: 7,
-      feeling: "Triste",
-      reason: "No seeee",
-      date: "2023/02/05",
-      time: "17:00",
-      timestamp: 1619827200,
-      solution: "No",
-    },
-    {
-      id: 7,
-      feeling: "Enfadado",
-      reason: "No se",
-      date: "2021/06/01",
-      time: "16:00",
-      timestamp: 1668022540800,
-      solution: "No",
-    },
-    {
-      id: 7,
-      feeling: "Cansado",
-      reason: "No se",
-      date: "2023/02/08",
-      time: "16:00",
-      timestamp: 1619827200,
-      solution: "No",
-    },
-    {
-      id: 7,
-      feeling: "Deprimido",
-      reason: "No seeee",
-      date: "2023/02/07",
-      time: "17:00",
-      timestamp: 1619827200,
-      solution: "No",
-    },
-  ]);
-// Podemos cambiar este sort por el timestamp cuando lo tengamos
-  let sortedData = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+interface RegisterData {
+  id: string;
+  userId: string;
+  feeling: string;
+  reason: string;
+  date: string;
+  time: string;
+  timestamp: number;
+  solution: string;
+}
+
+const HistoryScreen = ({navigation}: any) => {
+  const auth = getAuth();
+  const {getUser} = useUser();
+  const [selectedFeeling, setSelectedFeeling] = useState<string>("");
+  const [data, setData] = useState<RegisterData[]>([]);
+
+  const getHistoryQuery = (id: string) => {
+    return query(
+        collection(db, "history"),
+        where("userId", "==", id),
+        orderBy("timestamp", "desc"),
+    );
+  };
+
+  async function getData() {
+    const user = auth.currentUser || await getUser();
+    const id = user?.uid;
+    const historyQuery = getHistoryQuery(id);
+    const querySnapshot = await getDocs(historyQuery);
+    const historyData = querySnapshot.docs.map((doc) => doc.data()) as RegisterData[];
+    const historyDataWithId = querySnapshot.docs.map((doc) => {
+        return {...doc.data(), id: doc.id} as RegisterData;
+    });
+
+    setData(historyDataWithId);
+  }
+
+  useEffect(() => {
+
+    return navigation.addListener("focus", async () => {
+      await getData();
+    });
+
+    }, [navigation])
+
+  let sortedData = data.sort((a, b) => b.timestamp - a.timestamp);
 
   let newData = Object.values(
-    sortedData.reduce((acc, item) => {
-      if (!acc[item.date]) {
-        acc[item.date] = {
-          date: getFullDescriptionOfDate(item.date),
+    sortedData.reduce((agrupator:any, item: RegisterData) => {
+      if (!agrupator[item.date]) {
+        agrupator[item.date] = {
+          date: getFullDescriptionOfDate(getDateFromTimstamp(item.timestamp)),
           data: [],
         };
       }
-      acc[item.date].data.push(item);
-      return acc;
+      agrupator[item.date].data.push(item);
+      return agrupator;
     }, {})
   );
-    console.log(newData.date);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }: any) => {
     
     const feeling = feelings.find((feeling) => feeling.name === item.feeling);
     
@@ -156,7 +84,7 @@ const HistoryScreen = ({navigation}) => {
         onPress={() => handlePress(item)}
       >
         <Image
-          source={feeling?.image}
+          source={feeling ? feeling.image : feelings[0].image}
           style={styles.cardImage}
           resizeMode="contain"
           resizeMethod="resize"
@@ -176,7 +104,7 @@ const HistoryScreen = ({navigation}) => {
     );
   };
 
-  const renderSectionHeader = ({ section: { date } }) => {
+  const renderSectionHeader = ({ section: { date } }: any) => {
     console.log(date);
     return (
       <View style={styles.sectionHeader}>
@@ -185,13 +113,13 @@ const HistoryScreen = ({navigation}) => {
     );
   };
 
-  const handlePress = (item) => {
-    console.log(item);
+  const handlePress = (item: RegisterData) => {
     navigation.push("EditRegisterScreen", { item });
   };
-  const handleFeelingPress = (feeling) => {
+
+  const handleFeelingPress = (feeling: string) => {
     if (selectedFeeling === feeling) {
-      setSelectedFeeling();
+      setSelectedFeeling("");
       // getAllProducts();
     } else {
       setSelectedFeeling(feeling);
@@ -199,7 +127,7 @@ const HistoryScreen = ({navigation}) => {
     }
   };
 
-  return (
+    return (
     <View style={styles.main}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Registros</Text>
