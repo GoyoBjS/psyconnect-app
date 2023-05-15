@@ -1,6 +1,6 @@
 import { ImageRequireSource } from 'react-native';
 
-interface Feelings {
+export interface Feelings {
     id: number;
     name: string;
     color: string;
