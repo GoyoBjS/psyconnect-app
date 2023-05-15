@@ -1,14 +1,45 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {
+    FlatList,
+    StyleSheet,
+    View,
+} from "react-native";
+import React, { useState } from "react";
+import { reasons } from "../../../../../components/reasons";
+import ItemCard from "../../../../../components/ItemCard";
+import HeaderRegister from "../../../../../components/HeaderRegister";
 
-const ReasonScreen = () => {
-  return (
-    <View>
-      <Text>ReasonScreen</Text>
-    </View>
-  )
-}
+const ReasonScreen = ({ data, setData, step, setStep }) => {
+    const [selectedReason, setSelectedReason] = useState(null);
 
-export default ReasonScreen
+    const renderItem = ({ item }) => (
+        <ItemCard
+            item={item}
+            handlePress={() => {
+                console.log("item", item);
+                setData({...data, reason: item.name})
+                setStep(step + 1);
+            }
+            }
+        />
+    );
 
-const styles = StyleSheet.create({})
+    const headerComponent = ({ title }) => <HeaderRegister title={title} />;
+
+    return (
+        <View>
+            <FlatList
+                data={reasons}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                numColumns={2}
+                ListHeaderComponent={() =>
+                    headerComponent({ title: "¿Qué lo ha causado?" })
+                }
+                stickyHeaderIndices={[0]}
+                stickyHeaderHiddenOnScroll={false}
+            />
+        </View>
+    );
+};
+
+export default ReasonScreen;
