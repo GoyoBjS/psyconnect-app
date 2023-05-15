@@ -1,27 +1,29 @@
 import {useEffect, useState} from "react";
 import * as SecureStore from "expo-secure-store";
-import { getAuth } from "firebase/auth";
-import {doc, getDoc} from "firebase/firestore";
+import { getAuth,  Auth, User  } from "firebase/auth";
+import {doc, getDoc, DocumentData} from "firebase/firestore";
 import {db} from "../config/firebase";
+import firebase from "firebase/compat";
 
 const useUser = () => {
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<DocumentData | undefined>(undefined);
 
     async function updateUser(user: any) {
+        const auth: Auth = getAuth();
         console.log("updateUser", user)
         if (user) return SecureStore.setItemAsync("user", JSON.stringify(user));
-        const { currentUser } = getAuth();
-        const docRef = doc(db, "users", currentUser.uid);
+        const { currentUser } = auth;
+        const docRef = doc(db, "users", currentUser!.uid);
         getDoc(docRef).then((docSnap) => {
             if (docSnap.exists()) {
                 setUser(docSnap.data());
                 return SecureStore.setItemAsync("user", JSON.stringify(docSnap.data()));
             }
-            setUser(null);
+            setUser(undefined);
         });
     }
 
-    async function getUser(): Promise<any> {
+    async function getUser() {
         let user;
         const userData = await SecureStore.getItemAsync("user");
         console.log("getUser", userData)
@@ -31,10 +33,10 @@ const useUser = () => {
         }
         const { currentUser } = getAuth();
         console.log("currentUser", currentUser)
-        const docRef = doc(db, "users", currentUser.uid);
+        const docRef = doc(db, "users", user.uid);
         getDoc(docRef).then((docSnap) => {
             if (docSnap.exists()) {
-                user = docSnap.data();
+               user = docSnap.data();
                 // return setUser(docSnap.data());
             }
             // setUser(null);
@@ -43,7 +45,7 @@ const useUser = () => {
         return user
     }
     async function deleteUser() {
-        setUser(null);
+        setUser(undefined);
         return SecureStore.deleteItemAsync("user");
     }
 
