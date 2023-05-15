@@ -7,31 +7,38 @@ import React, { useState } from "react";
 import { feelings } from "../../../../../components/feelings";
 import ItemCard from "../../../../../components/ItemCard";
 import HeaderRegister from "../../../../../components/HeaderRegister";
+interface Props {
+    data: any;
+    setData: (data: any) => void;
+    step?: number;
+    setStep?: (step: number) => void;
+    handleClose?: () => void;
+}
+const FeelingsScreen = ({ data, setData, step, setStep, handleClose }: Props) => {
 
-const FeelingsScreen = ({ setData, setStep }) => {
-  const [selectedFeeling, setSelectedFeeling] = useState(null);
-
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: any) => (
     <ItemCard
       item={item}
-      selectedItem={selectedFeeling}
-      setSelectedItem={setSelectedFeeling}
-      setData={setData}
-      setStep={setStep}
+      handlePress={() => {
+          console.log("item", item.name);
+        setData((prevData: any) => ({ ...prevData, feeling: item.name }));
+        if (handleClose) handleClose();
+        if (step && setStep) setStep(step + 1);
+        }
+      }
     />
   );
 
-  const headerComponent = ({ title }) => <HeaderRegister title={title} />;
+  const headerComponent = (title: string) => <HeaderRegister title={title} />;
 
   return (
     <View>
       <FlatList
         data={feelings}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
         numColumns={2}
         ListHeaderComponent={() =>
-          headerComponent({ title: "¿Cómo te sientes?" })
+          headerComponent("¿Cómo te sientes?" )
         }
         // StickyHeaderComponent={() =>
         //   headerComponent({ title: "¿Cómo te sientes?" })
