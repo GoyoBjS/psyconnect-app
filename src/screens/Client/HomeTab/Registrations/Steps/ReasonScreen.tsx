@@ -1,31 +1,37 @@
 import { FlatList, View } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { reasons } from '../../../../../components/reasons'
 import ItemCard from '../../../../../components/ItemCard'
 import HeaderRegister from '../../../../../components/HeaderRegister'
+import { QuickRegistrationDataType } from '../../../../../types/quickRegistrationData.type'
 
-const ReasonScreen = ({ data, setData, step, setStep }) => {
-  const [selectedReason, setSelectedReason] = useState(null)
+interface Props {
+  setData: (data: any) => void
+  step?: number
+  setStep?: (step: number) => void
+  handleClose?: () => void
+}
 
-  const renderItem = ({ item }) => (
+const ReasonScreen = ({ setData, step, setStep, handleClose }: Props) => {
+  const renderItem = ({ item }: any) => (
     <ItemCard
       item={item}
       handlePress={() => {
         console.log('item', item)
-        setData({ ...data, reason: item.name })
-        setStep(step + 1)
+        setData((prevData: QuickRegistrationDataType) => ({ ...prevData, reason: item.name }))
+        if (handleClose) handleClose()
+        if (step && setStep) setStep(step + 1)
       }}
     />
   )
 
-  const headerComponent = ({ title }) => <HeaderRegister title={title} />
+  const headerComponent = ({ title }: any) => <HeaderRegister title={title} />
 
   return (
     <View>
       <FlatList
         data={reasons}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
         numColumns={2}
         ListHeaderComponent={() => headerComponent({ title: '¿Qué lo ha causado?' })}
         stickyHeaderIndices={[0]}

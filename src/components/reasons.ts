@@ -1,6 +1,6 @@
 import { ImageRequireSource } from 'react-native'
 
-interface Reasons {
+export interface Reasons {
   id: number
   name: string
   color: string

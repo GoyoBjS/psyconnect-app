@@ -1,11 +1,10 @@
-import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { feelings, Feelings } from '../../../components/feelings'
+import { ScrollView, Text } from 'react-native'
+import React, { useState } from 'react'
+import { feelings } from '../../../components/feelings'
+import { reasons } from '../../../components/reasons'
 import FeelingsScreen from '../HomeTab/Registrations/Steps/FeelingsScreen'
-import { doc, updateDoc } from 'firebase/firestore'
-import { db } from '../../../config/firebase'
-
-const WIDTH = Dimensions.get('window').width
+import ReasonScreen from '../HomeTab/Registrations/Steps/ReasonScreen'
+import ElementToModify from './components/ElementToModify'
 
 const EditRegisterScreen = ({
   navigation,
@@ -13,86 +12,36 @@ const EditRegisterScreen = ({
     params: { item }
   }
 }: any) => {
-  const [feelingData, setFeelingData] = useState<Feelings>()
   const [data, setData] = useState<any>(item)
+  const [showEditScreen, setShowEditScreen] = useState<string>('')
 
-  const [showFeelingsScreen, setShowFeelingsScreen] = useState<boolean>(false)
-
-  useEffect(() => {
-    setFeelingData(feelings.find((feeling: Feelings): boolean => feeling.name === item.feeling))
-  }, [])
-
-  const handlePress = (item: any) => {
-    setShowFeelingsScreen(true)
-    console.log('HandlePress', data.feeling)
-  }
-
-  const handleClose = async () => {
-    console.log('HandleClose', data.feeling)
-    setShowFeelingsScreen(false)
-  }
-
-  useEffect(() => {
-    const updateFeeling = async () => {
-      console.log('UpdateFeeling', data.feeling)
-      const historyRef = doc(db, 'history', data.id)
-      await updateDoc(historyRef, {
-        feeling: data.feeling
-      })
-    }
-    updateFeeling()
-      .then(() =>
-        setData({
-          ...data,
-          feeling: data.feeling
-        })
-      )
-      .then(() => {
-        setFeelingData(feelings.find((feeling: Feelings): boolean => feeling.name === data.feeling))
-      })
-  }, [data.feeling])
+  const handlePress = (screenName: string) => setShowEditScreen(screenName)
+  const handleClose = async () => setShowEditScreen('')
 
   return (
     <>
-      {showFeelingsScreen && (
-        <FeelingsScreen data={data} setData={setData} handleClose={handleClose} />
+      {showEditScreen === 'feeling' && (
+        <FeelingsScreen setData={setData} handleClose={handleClose} />
       )}
+      {showEditScreen === 'reason' && <ReasonScreen setData={setData} handleClose={handleClose} />}
       <ScrollView>
         <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 12 }}>Editar registro</Text>
-
-        <Text style={styles.title}>¿Cómo te sientes?</Text>
-        <Pressable
-          style={[
-            styles.card,
-            { backgroundColor: feelingData ? feelingData.color : feelings[0].color }
-          ]}
-          onPress={() => handlePress(data)}
-        >
-          <Image
-            source={feelingData ? feelingData.image : feelings[0].image}
-            style={styles.cardImage}
-            resizeMode="contain"
-            resizeMethod="resize"
-          />
-          <Text style={styles.text}>{data.feeling}</Text>
-        </Pressable>
-
-        <Text style={styles.title}>¿Cómo te sientes?</Text>
-        <Pressable
-          style={[
-            styles.card,
-            { backgroundColor: feelingData ? feelingData.color : feelings[0].color }
-          ]}
-          onPress={() => handlePress(data)}
-        >
-          <Image
-            source={feelingData ? feelingData.image : feelings[0].image}
-            style={styles.cardImage}
-            resizeMode="contain"
-            resizeMethod="resize"
-          />
-          <Text style={styles.text}>{data.feeling}</Text>
-        </Pressable>
+        <ElementToModify
+          data={data}
+          setData={setData}
+          title="¿Cómo te sientes?"
+          element="feeling"
+          handlePress={handlePress}
+          styleData={feelings}
+        />
+        <ElementToModify
+          data={data}
+          setData={setData}
+          title="¿Qué lo ha causado?"
+          element="reason"
+          handlePress={handlePress}
+          styleData={reasons}
+        />
 
         {/* <Text>{id}</Text>
             <Text>{feeling}</Text>
@@ -107,43 +56,3 @@ const EditRegisterScreen = ({
 }
 
 export default EditRegisterScreen
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 12,
-    color: '#667EFF'
-  },
-  card: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    width: WIDTH - 24,
-    height: 100,
-    marginHorizontal: 12,
-    marginVertical: 8,
-    borderRadius: 16,
-    alignItems: 'center',
-    backgroundColor: '#667EFF',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  cardImage: {
-    width: 72,
-    height: 72,
-    marginRight: 20
-  },
-  text: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#FFFFFF'
-  }
-})
