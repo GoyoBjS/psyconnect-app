@@ -45,7 +45,6 @@ const HistoryScreen = ({ navigation }: any) => {
     const id = user?.uid
     const historyQuery = getHistoryQuery(id)
     const querySnapshot = await getDocs(historyQuery)
-    const historyData = querySnapshot.docs.map((doc) => doc.data()) as RegisterData[]
     const historyDataWithId = querySnapshot.docs.map((doc) => {
       return { ...doc.data(), id: doc.id } as RegisterData
     })
@@ -61,7 +60,7 @@ const HistoryScreen = ({ navigation }: any) => {
 
   const sortedData = data.sort((a, b) => b.timestamp - a.timestamp)
 
-  const newData = Object.values(
+  const newData: any[] = Object.values(
     sortedData.reduce((agrupator: any, item: RegisterData) => {
       if (!agrupator[item.date]) {
         agrupator[item.date] = {
