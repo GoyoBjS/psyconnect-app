@@ -1,34 +1,197 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useCallback } from 'react'
+import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { getAuth, signOut } from 'firebase/auth'
 import * as SecureStore from 'expo-secure-store'
+import GlobalStyles from '../../../styles/GlobalStyles'
+import { useAuthentication } from '../../../hooks/useAuthentication'
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const auth = getAuth()
+  const { user, setUser } = useAuthentication()
+  const navigation = useNavigation()
 
-  const handleSignOut = useCallback(() => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        SecureStore.deleteItemAsync('user')
-        SecureStore.deleteItemAsync('token')
-      })
-      .catch((error) => {
-        // An error happened.
-        console.log(error)
-      })
-  }, [])
+  const handleSignOut = useCallback(async () => {
+    console.log('sign out')
+    try {
+      setUser(null)
+      await SecureStore.deleteItemAsync('user')
+      await SecureStore.deleteItemAsync('token')
+      await signOut(auth)
+
+      // Navigate to the initial screen or login screen
+      // navigation.jumpTo('AuthStack', { screen: 'Login' })
+      // navigation.dispatch(
+      //   CommonActions.reset({
+      //     index: 0,
+      //     routes: [
+      //       { name: 'Login' }
+      //       // {
+      //       //   name: 'Profile',
+      //       //   params: { user: 'jarne' },
+      //       // },
+      //     ]
+      //   })
+      // )
+    } catch (error) {
+      console.log(error)
+    }
+  }, [auth, setUser])
+
+  let UsuarioIcon = require('../../../assets/icons/UsuarioIcon.png')
+  let ArrowIcon = require('../../../assets/icons/ProfileArrow.png')
 
   return (
-    <View>
-      <Text>ProfileScreen</Text>
+    <ScrollView style={styles.container}>
+      {/* <Text style={styles.title}>Ajustes</Text> */}
+      <View style={styles.blockContainer}>
+        <Text style={styles.subTitle}>Cuenta</Text>
+
+        <Pressable onPress={() => navigation.navigate('EditProfile')} style={styles.linkContainer}>
+          <View style={styles.iconAndTextContainer}>
+            <Image style={styles.arrowIcon} source={UsuarioIcon} />
+            <Text style={styles.text}>Editar perfil</Text>
+          </View>
+          <Image style={styles.arrowIcon} source={ArrowIcon} />
+        </Pressable>
+        <Pressable
+          onPress={() => navigation.navigate('ChangePassword')}
+          style={styles.linkContainer}
+        >
+          <View style={styles.iconAndTextContainer}>
+            <Image style={styles.arrowIcon} source={require('../../../assets/icons/Lock.png')} />
+            <Text style={styles.text}>Cambiar contraseña</Text>
+          </View>
+          <Image style={styles.arrowIcon} source={ArrowIcon} />
+        </Pressable>
+        <Pressable onPress={() => navigation.push('EditPreferences')} style={styles.linkContainer}>
+          <View style={styles.iconAndTextContainer}>
+            <Image style={styles.arrowIcon} source={require('../../../assets/icons/Lock.png')} />
+            <Text style={styles.text}>Modificar preferencias</Text>
+          </View>
+          <Image style={styles.arrowIcon} source={ArrowIcon} />
+        </Pressable>
+      </View>
+      <View style={styles.blockContainer}>
+        <Text style={styles.subTitle}>Ayuda</Text>
+
+        <Pressable onPress={() => navigation.navigate('Inform')} style={styles.linkContainer}>
+          <View style={styles.iconAndTextContainer}>
+            <Image
+              style={styles.arrowIcon}
+              source={require('../../../assets/icons/Informar.png')}
+            />
+            <Text style={styles.text}>Informar de un problema</Text>
+          </View>
+          <Image style={styles.arrowIcon} source={ArrowIcon} />
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('Contact')} style={styles.linkContainer}>
+          <View style={styles.iconAndTextContainer}>
+            <Image
+              style={styles.arrowIcon}
+              source={require('../../../assets/icons/Contacto.png')}
+            />
+            <Text style={styles.text}>Contacto</Text>
+          </View>
+          <Image style={styles.arrowIcon} source={ArrowIcon} />
+        </Pressable>
+      </View>
+      <View style={styles.blockContainer}>
+        <Text style={styles.subTitle}>Información</Text>
+
+        <Pressable onPress={() => navigation.navigate('Privacy')} style={styles.linkContainer}>
+          <View style={styles.iconAndTextContainer}>
+            <Image
+              style={styles.arrowIcon}
+              source={require('../../../assets/icons/Privacidad.png')}
+            />
+            <Text style={styles.text}>Privacidad</Text>
+          </View>
+          <Image style={styles.arrowIcon} source={ArrowIcon} />
+        </Pressable>
+        <Pressable
+          onPress={() => navigation.navigate('TermsAndConditions')}
+          style={styles.linkContainer}
+        >
+          <View style={styles.iconAndTextContainer}>
+            <Image
+              style={styles.arrowIcon}
+              source={require('../../../assets/icons/Condiciones.png')}
+            />
+            <Text style={styles.text}>Condiciones de uso</Text>
+          </View>
+          <Image style={styles.arrowIcon} source={ArrowIcon} />
+        </Pressable>
+      </View>
+
       <Pressable onPress={handleSignOut}>
-        <Text>Logout</Text>
+        <Text style={styles.closeSesion}>Cerrar sesión</Text>
       </Pressable>
-    </View>
+      <View style={styles.versionContainer}>
+        <Text style={styles.version}>Versión 1.0.0</Text>
+      </View>
+    </ScrollView>
   )
 }
 
 export default ProfileScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: GlobalStyles.globalBackgroundColor,
+    paddingTop: 16
+  },
+  blockContainer: {
+    paddingRight: 32,
+    paddingLeft: 32
+  },
+  subTitle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    lineHeight: 24,
+    color: '#473261',
+    paddingBottom: 24
+  },
+  linkContainer: {
+    flex: 1,
+    width: Dimensions.get('window').width - 64,
+    paddingBottom: 32,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  iconAndTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  text: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    lineHeight: 22,
+    color: '#833AB4',
+    paddingLeft: 16
+  },
+  arrowIcon: {
+    width: 16,
+    height: 16,
+    tintColor: '#473261'
+  },
+  closeSesion: {
+    color: '#00B4D9',
+    fontWeight: 'bold',
+    fontSize: 20,
+    lineHeight: 24,
+    textShadowColor: '#111',
+    paddingLeft: 32
+  },
+  versionContainer: {
+    paddingTop: 24,
+    alignSelf: 'center'
+  },
+  version: {
+    color: '#A2A3A4',
+    fontWeight: '600',
+    fontSize: 12,
+    lineHeight: 15
+  }
+})
