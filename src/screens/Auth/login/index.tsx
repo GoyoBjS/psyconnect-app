@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Pressable,
   StatusBar,
@@ -9,11 +9,11 @@ import {
   View
 } from 'react-native'
 import GlobalStyles from '../../../styles/GlobalStyles'
-// import debounce from "lodash.debounce";
-import { signup } from '../../../api/signup'
 import { SignupDataType } from '../../../types/signupData.type'
+import { AuthContext } from '../../../contexts/AuthContext'
 
 const SignInScreen = ({ navigation }: { navigation: any }) => {
+  const { handleSignIn } = useContext(AuthContext)
   const [value, setValue] = useState<SignupDataType>({
     email: '',
     password: '',
@@ -21,7 +21,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
   })
   // const debouncedSubmit = debounce(async (value) => signUp(value), 300)
   const onSubmit = () => {
-    signup(value).then((res: string | undefined) => {
+    handleSignIn(value).then((res: string | undefined) => {
       if (res) {
         console.log(res)
         setValue({ ...value, error: res })
