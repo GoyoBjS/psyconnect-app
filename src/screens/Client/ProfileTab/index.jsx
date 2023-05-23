@@ -1,42 +1,12 @@
-import React, { useCallback } from 'react'
+import React, { useContext } from 'react'
 import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { getAuth, signOut } from 'firebase/auth'
-import * as SecureStore from 'expo-secure-store'
 import GlobalStyles from '../../../styles/GlobalStyles'
-import { useAuthentication } from '../../../hooks/useAuthentication'
+import { AuthContext } from '../../../contexts/AuthContext'
 
 const ProfileScreen = () => {
-  const auth = getAuth()
-  const { user, setUser } = useAuthentication()
+  const { handleSignOut } = useContext(AuthContext)
   const navigation = useNavigation()
-
-  const handleSignOut = useCallback(async () => {
-    console.log('sign out')
-    try {
-      setUser(null)
-      await SecureStore.deleteItemAsync('user')
-      await SecureStore.deleteItemAsync('token')
-      await signOut(auth)
-
-      // Navigate to the initial screen or login screen
-      // navigation.jumpTo('AuthStack', { screen: 'Login' })
-      // navigation.dispatch(
-      //   CommonActions.reset({
-      //     index: 0,
-      //     routes: [
-      //       { name: 'Login' }
-      //       // {
-      //       //   name: 'Profile',
-      //       //   params: { user: 'jarne' },
-      //       // },
-      //     ]
-      //   })
-      // )
-    } catch (error) {
-      console.log(error)
-    }
-  }, [auth, setUser])
 
   let UsuarioIcon = require('../../../assets/icons/UsuarioIcon.png')
   let ArrowIcon = require('../../../assets/icons/ProfileArrow.png')
