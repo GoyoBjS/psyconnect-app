@@ -1,7 +1,5 @@
-const SPANISH_TIMEZONE = 2 * 3600
-
 export const extractDateTimeFromTimestamp = (timestamp: number) => {
-  const date = new Date(timestamp + SPANISH_TIMEZONE)
+  const date = new Date(timestamp)
   return (
     date.getUTCFullYear() +
     '-' +
@@ -9,24 +7,24 @@ export const extractDateTimeFromTimestamp = (timestamp: number) => {
     '-' +
     ('0' + date.getUTCDate()).slice(-2) +
     ' ' +
-    ('0' + date.getUTCHours()).slice(-2) +
+    ('0' + date.getHours()).slice(-2) +
     ':' +
-    ('0' + date.getUTCMinutes()).slice(-2)
+    ('0' + date.getMinutes()).slice(-2)
   )
 }
 
 export const extractDateFromTimestamp = (timestamp: number) => {
-  const date = new Date(timestamp + SPANISH_TIMEZONE)
+  const date = new Date(timestamp)
   return (
     date.getUTCFullYear() +
     '-' +
-    ('0' + date.getUTCMonth()).slice(-2) +
+    ('0' + (date.getUTCMonth() + 1)).slice(-2) +
     '-' +
     ('0' + date.getUTCDate()).slice(-2)
   )
 }
 
 export const extractTimeFromTimestamp = (timestamp: number) => {
-  const date = new Date(timestamp + SPANISH_TIMEZONE)
-  return ('0' + date.getUTCHours()).slice(-2) + ':' + ('0' + date.getUTCMinutes()).slice(-2)
+  const date = new Date(timestamp)
+  return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2)
 }
