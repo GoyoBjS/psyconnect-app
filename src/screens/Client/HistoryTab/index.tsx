@@ -1,13 +1,4 @@
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  ScrollView,
-  SectionList,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
+import { Dimensions, Image, Pressable, SectionList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import getFullDescriptionOfDate from '../../../utils/getFullDescriptionOfDate'
 import { feelings } from '../../../components/feelings'
@@ -33,7 +24,6 @@ interface RegisterData {
 const HistoryScreen = ({ navigation }: any) => {
   const auth = getAuth()
   const { getUser } = useUser()
-  const [selectedFeeling, setSelectedFeeling] = useState<string>('')
   const [data, setData] = useState<RegisterData[]>([])
 
   const getHistoryQuery = (id: string) => {
@@ -114,46 +104,11 @@ const HistoryScreen = ({ navigation }: any) => {
     navigation.push('EditRegisterScreen', { item })
   }
 
-  const handleFeelingPress = (feeling: string) => {
-    if (selectedFeeling === feeling) {
-      setSelectedFeeling('')
-      // getAllProducts();
-    } else {
-      setSelectedFeeling(feeling)
-      // search in the database for the products that match the Feeling
-    }
-  }
-
   return (
     <View style={styles.main}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Registros</Text>
       </View>
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={styles.feelingsContainer}
-      >
-        {feelings.map((feeling) => (
-          <Pressable
-            style={[
-              styles.feelingContainer,
-              selectedFeeling === feeling.name && styles.selectedFeelingContainer
-            ]}
-            key={feeling.id}
-            onPress={() => handleFeelingPress(feeling.name)}
-          >
-            <Text
-              style={[
-                styles.feelingText,
-                selectedFeeling === feeling.name && styles.selectedFeelingText
-              ]}
-            >
-              {feeling.name}
-            </Text>
-          </Pressable>
-        ))}
-      </ScrollView>
       <SectionList
         sections={newData}
         keyExtractor={(item, index) => item + index}
@@ -253,15 +208,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
   cardTitle: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 8
+    marginBottom: 8,
+    width: WIDTH * 0.4
   },
   cardReason: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '600',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    width: WIDTH * 0.4
   },
   cardExtra: {
     display: 'flex',
