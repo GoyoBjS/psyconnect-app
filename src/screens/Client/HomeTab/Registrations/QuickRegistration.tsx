@@ -23,7 +23,7 @@ const QuickRegistrationScreen = () => {
   const navigation: NavigationProp<any> = useNavigation()
   async function instertData(data: QuickRegistrationDataType) {
     const user = auth.currentUser || (await getUser())
-    const { feeling, reason, solution } = data
+    const { feeling, reason } = data
     const timestamp = Date.now()
     const time = extractTimeFromTimestamp(timestamp)
     const date = extractDateFromTimestamp(timestamp)
@@ -57,10 +57,8 @@ const QuickRegistrationScreen = () => {
   return (
     <View>
       <>
-        {step === 1 && (
-          <FeelingsScreen data={data} setData={setData} step={step} setStep={setStep} />
-        )}
-        {step === 2 && <ReasonScreen data={data} setData={setData} step={step} setStep={setStep} />}
+        {step === 1 && <FeelingsScreen setData={setData} step={step} setStep={setStep} />}
+        {step === 2 && <ReasonScreen setData={setData} step={step} setStep={setStep} />}
       </>
     </View>
   )
