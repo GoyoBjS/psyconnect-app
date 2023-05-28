@@ -1,11 +1,11 @@
 import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { feelings } from '../../../../../components/feelings'
+import { solutions } from '../../../../../components/solutions'
 import ItemCard from '../../../../../components/ItemCard'
 import HeaderRegister from '../../../../../components/HeaderRegister'
 import { QuickRegistrationDataType } from '../../../../../types/quickRegistrationData.type'
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 interface Props {
   setData: (data: any) => void
@@ -64,13 +64,12 @@ const SolutionScreen = ({ setData, step, setStep, handleClose }: Props) => {
       </View>
       {stopFeeling && (
         <FlatList
-          data={feelings}
+          style={{ height: height * 0.6, width: width }}
+          data={solutions}
           renderItem={renderItem}
           numColumns={2}
-          ListHeaderComponent={() => headerComponent('¿Cómo te sientes?')}
-          // StickyHeaderComponent={() =>
-          //   headerComponent({ title: "¿Cómo te sientes?" })
-          // }
+          horizontal={false}
+          ListHeaderComponent={() => headerComponent('¿Cómo se ha solucionado?')}
           stickyHeaderIndices={[0]}
           stickyHeaderHiddenOnScroll={false}
         />
@@ -89,10 +88,14 @@ export default SolutionScreen
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    flex: 1,
     backgroundColor: '#F5F5F5',
+    marginTop: 12,
+    marginBottom: 0,
+    display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'column'
   },
   title: {
     fontSize: 36,
