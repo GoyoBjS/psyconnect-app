@@ -103,7 +103,6 @@ const HistoryScreen = ({ navigation }: any) => {
   }
 
   const renderSectionHeader = ({ section: { date } }: any) => {
-    console.log(date)
     return (
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionHeaderText}>{date}</Text>

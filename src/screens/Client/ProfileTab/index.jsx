@@ -13,7 +13,6 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* <Text style={styles.title}>Ajustes</Text> */}
       <View style={styles.blockContainer}>
         <Text style={styles.subTitle}>Cuenta</Text>
 
