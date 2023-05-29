@@ -7,6 +7,8 @@ import ReasonScreen from '../HomeTab/Registrations/Steps/ReasonScreen'
 import ElementToModify from './components/ElementToModify'
 import { solutions } from '../../../components/solutions'
 import SolutionScreen from '../HomeTab/Registrations/Steps/SolutionScreen'
+import DateTimeComponent from './components/DateTimeComponent'
+import DateTimeScreen from '../HomeTab/Registrations/Steps/DateTimeScreen'
 
 const EditRegisterScreen = ({
   route: {
@@ -28,6 +30,9 @@ const EditRegisterScreen = ({
       {showEditScreen === 'solution' && (
         <SolutionScreen setData={setData} handleClose={handleClose} />
       )}
+      {showEditScreen === 'dateTime' && (
+        <DateTimeScreen data={data} setData={setData} handleClose={handleClose} />
+      )}
       {!showEditScreen && (
         <ScrollView>
           <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 12 }}>Editar registro</Text>
@@ -47,14 +52,13 @@ const EditRegisterScreen = ({
             handlePress={handlePress}
             styleData={reasons}
           />
-          {/*<ElementToModify*/}
-          {/*  data={data}*/}
-          {/*  setData={setData}*/}
-          {/*  title="¿Cuándo ha sido?"*/}
-          {/*  element="dateTime"*/}
-          {/*  handlePress={handlePress}*/}
-          {/*  styleData={reasons}*/}
-          {/*/>*/}
+          <DateTimeComponent
+            data={data}
+            setData={setData}
+            title="¿Cuándo ha sido?"
+            element="dateTime"
+            handlePress={handlePress}
+          />
           <ElementToModify
             data={data}
             setData={setData}
@@ -63,14 +67,6 @@ const EditRegisterScreen = ({
             handlePress={handlePress}
             styleData={solutions}
           />
-
-          {/* <Text>{id}</Text>
-            <Text>{feeling}</Text>
-            <Text>{reason}</Text>
-            <Text>{date}</Text>
-            <Text>{time}</Text>
-            <Text>{timestamp}</Text>
-            <Text>{solution}</Text> */}
         </ScrollView>
       )}
     </>
