@@ -19,7 +19,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
     password: '',
     error: ''
   })
-  // const debouncedSubmit = debounce(async (value) => signUp(value), 300)
+
   const onSubmit = () => {
     handleSignIn(value).then((res: string | undefined) => {
       if (res) {
@@ -59,10 +59,6 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             secureTextEntry={true}
           />
         </View>
-
-        <TouchableOpacity onPress={() => navigation.push('Forgot Password')}>
-          <Text style={styles.forgotPassword}>¿Has olvidado la contraseña?</Text>
-        </TouchableOpacity>
 
         {!!value.error && <Text style={styles.error}>*{value.error}</Text>}
         <View style={styles.buttonContainer}>
