@@ -21,13 +21,12 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
   })
 
   const onSubmit = () => {
-    handleSignIn(value).then((res: string | undefined) => {
-      if (res) {
-        console.log(res)
-        setValue({ ...value, error: res })
-      }
+    handleSignIn(value, setValue).then((res) => {
+      console.log({ res })
+      setTimeout(() => {
+        setValue({ ...value, error: '' })
+      }, 4000)
     })
-    console.log(value)
   }
   return (
     <View style={styles.container}>
@@ -58,9 +57,9 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             keyboardType="default"
             secureTextEntry={true}
           />
+          {value.error && <Text style={styles.error}>* {value.error}</Text>}
         </View>
 
-        {!!value.error && <Text style={styles.error}>*{value.error}</Text>}
         <View style={styles.buttonContainer}>
           <Pressable style={GlobalStyles.submitButtonGlobal} onPress={onSubmit}>
             <Text style={GlobalStyles.submitText}>Iniciar Sesión</Text>
@@ -87,7 +86,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    // backgroundColor: GlobalStyles.globalBackgroundColor,
+    // @ts-ignore
+    backgroundColor: GlobalStyles.globalBackgroundColor,
     paddingHorizontal: 25,
     paddingTop: StatusBar.currentHeight ? 32 + StatusBar.currentHeight : 0
   },
@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   registerInputs: {
-    marginTop: 32
+    marginTop: 32,
+    position: 'relative'
   },
   input: {
     paddingVertical: 19,
@@ -115,7 +116,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#A296B0',
     borderRadius: 10,
     textAlignVertical: 'center',
-    // height: Platform.OS == "android" ? 200 : 100 ,
     fontSize: 16,
     lineHeight: 22,
     fontWeight: 'bold',
@@ -157,7 +157,10 @@ const styles = StyleSheet.create({
   error: {
     marginTop: 10,
     padding: 10,
-    color: '#F61C0D'
+    color: '#F61C0D',
+    position: 'absolute',
+    bottom: -24,
+    left: 0
   }
 })
 

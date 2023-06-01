@@ -35,9 +35,10 @@ export default function RootNavigation() {
     })
   }, [])
 
-  const handleSignIn = async ({ email, password }: any) => {
+  const handleSignIn = async (value: any, setValue: any) => {
+    const { email, password } = value
     if (!email || !password) {
-      return 'email or password is empty'
+      return setValue({ ...value, error: 'Email y contraseña son requeridos' })
     }
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -46,22 +47,33 @@ export default function RootNavigation() {
         getDoc(docRef)
           .then((docSnap) => {
             if (docSnap.exists()) {
-              console.log('Document data:', docSnap.data())
               SecureStore.setItemAsync('user', JSON.stringify(docSnap.data()))
               setUser(docSnap.data())
-            } else {
-              console.log('Document written with ID: ', docRef.id)
-              return 'Document written with ID: ' + docRef.id
             }
           })
           .catch((error) => {
-            console.log('Error getting document 1:', error)
-            return 'Error getting document 1'
+            return setValue({ ...value, error: error.message })
           })
       })
       .catch((error) => {
         console.log('Error getting document:', error.message)
-        return error.message
+        switch (error.code) {
+          case 'auth/invalid-email':
+            setValue({ ...value, error: 'Email inválido' })
+            break
+          case 'auth/user-disabled':
+            setValue({ ...value, error: 'Usuario deshabilitado' })
+            break
+          case 'auth/user-not-found':
+            setValue({ ...value, error: 'Usuario no encontrado' })
+            break
+          case 'auth/wrong-password':
+            setValue({ ...value, error: 'Contraseña incorrecta' })
+            break
+          default:
+            setValue({ ...value, error: 'Error desconocido' })
+            break
+        }
       })
   }
 

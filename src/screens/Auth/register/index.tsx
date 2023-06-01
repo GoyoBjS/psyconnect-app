@@ -13,9 +13,10 @@ const RegisterScreen = () => {
   const [error, setError] = useState('')
 
   const handleRegister = () => {
-    setError('')
-    createUser(user, setError).then((res) => {
-      console.log({ res })
+    createUser(user, setError).then(() => {
+      setTimeout(() => {
+        setError('')
+      }, 4000)
     })
   }
 
