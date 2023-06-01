@@ -19,8 +19,7 @@ const FeedStack = () => {
           headerTintColor: '#473261',
           headerTitleStyle: {
             fontWeight: 'bold',
-            fontSize: 40,
-            marginHorizontal: 100
+            fontSize: 40
           }
         }}
         name="UserProfile"

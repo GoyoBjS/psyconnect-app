@@ -8,8 +8,10 @@ const ProfileScreen = () => {
   const { handleSignOut } = useContext(AuthContext)
   const navigation = useNavigation()
 
-  let UsuarioIcon = require('../../../assets/icons/UsuarioIcon.png')
-  let ArrowIcon = require('../../../assets/icons/ProfileArrow.png')
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const UsuarioIcon = require('../../../assets/icons/UsuarioIcon.png')
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const ArrowIcon = require('../../../assets/icons/ProfileArrow.png')
 
   return (
     <ScrollView style={styles.container}>

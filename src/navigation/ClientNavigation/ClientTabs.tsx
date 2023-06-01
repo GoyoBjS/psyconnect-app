@@ -9,12 +9,16 @@ import { AntDesign } from '@expo/vector-icons'
 const RootTabScreens = () => {
   const Tab = createBottomTabNavigator()
   return (
-    <Tab.Navigator initialRouteName={'Feed'} screenOptions={styles.container}>
+    <Tab.Navigator
+      initialRouteName={'Feed'}
+      // @ts-ignore
+      screenOptions={styles.container}
+    >
       <Tab.Screen
         name="Calendario"
         component={HistoryStack}
         options={{
-          tabBarIcon: ({ size, focused, color }) => {
+          tabBarIcon: ({ size, focused }) => {
             return <AntDesign name="calendar" size={size} color={focused ? '#7D26E9' : '#000'} />
           }
         }}
@@ -23,7 +27,7 @@ const RootTabScreens = () => {
         name="Registrar"
         component={HomeStack}
         options={{
-          tabBarIcon: ({ size, focused, color }) => {
+          tabBarIcon: ({ size, focused }) => {
             return <AntDesign name="pluscircleo" size={size} color={focused ? '#7D26E9' : '#000'} />
           }
         }}
@@ -32,7 +36,7 @@ const RootTabScreens = () => {
         name="Perfil"
         component={ProfileStack}
         options={{
-          tabBarIcon: ({ size, focused, color }) => {
+          tabBarIcon: ({ size, focused }) => {
             return <AntDesign name="user" size={size} color={focused ? '#7D26E9' : '#000'} />
           },
           title: 'Perfil'
@@ -46,6 +50,7 @@ export default RootTabScreens
 
 const styles = StyleSheet.create({
   container: {
+    // @ts-ignore
     headerShown: false,
     tabBarHideOnKeyboard: true,
     tabBarActiveTintColor: '#7D26E9',

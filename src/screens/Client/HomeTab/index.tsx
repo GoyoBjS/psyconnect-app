@@ -4,7 +4,7 @@ import React from 'react'
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={{ display: 'flex', flex: 1 }}>
       <View style={styles.titleContainer}>
