@@ -1,4 +1,5 @@
-module.exports = function (api) {
+// @ts-ignore
+module.exports = function (api: any) {
   api.cache(true)
   return {
     presets: ['babel-preset-expo']
