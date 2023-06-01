@@ -25,7 +25,7 @@ const HistoryScreen = ({ navigation }: any) => {
   const auth = getAuth()
   const { getUser } = useUser()
   const [data, setData] = useState<RegisterData[]>([])
-
+  console.log(data.length)
   const getHistoryQuery = (id: string) => {
     return query(collection(db, 'history'), where('userId', '==', id), orderBy('timestamp', 'desc'))
   }
@@ -62,6 +62,19 @@ const HistoryScreen = ({ navigation }: any) => {
       return agrupator
     }, {})
   )
+
+  const EmptyList = () => {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>Nada por aquí...</Text>
+        <Text style={styles.emptyText}>Nada por allá...</Text>
+        <Image source={require('../../../assets/empty.png')} style={styles.emptyImage} />
+        <Pressable style={styles.emptyButton} onPress={() => navigation.navigate('Registrar')}>
+          <Text style={styles.emptyButtonText}>¡Registra tu primer sentimiento!</Text>
+        </Pressable>
+      </View>
+    )
+  }
 
   const renderItem = ({ item }: any) => {
     const feeling = feelings.find((feeling) => feeling.name === item.feeling)
@@ -109,12 +122,15 @@ const HistoryScreen = ({ navigation }: any) => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Registros</Text>
       </View>
-      <SectionList
-        sections={newData}
-        keyExtractor={(item, index) => item + index}
-        renderItem={(item) => renderItem(item)}
-        renderSectionHeader={(item) => renderSectionHeader(item)}
-      />
+      {data.length === 0 && <EmptyList />}
+      {data.length > 0 && (
+        <SectionList
+          sections={newData}
+          keyExtractor={(item, index) => item + index}
+          renderItem={(item) => renderItem(item)}
+          renderSectionHeader={(item) => renderSectionHeader(item)}
+        />
+      )}
     </View>
   )
 }
@@ -242,5 +258,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#FFFFFF'
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  emptyText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#7D26E9'
+  },
+  emptyImage: {
+    width: WIDTH * 0.85,
+    height: WIDTH * 0.85,
+    marginTop: 48
+  },
+  emptyButton: {
+    backgroundColor: '#7D26E9',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 32
+  },
+  emptyButtonText: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 'bold'
   }
 })
