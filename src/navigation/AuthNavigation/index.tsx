@@ -6,17 +6,13 @@ import RegisterScreen from '../../screens/Auth/register'
 
 import('@react-navigation/native')
 
-// import ForgotPasswordScreen from '../../screens/Auth/ForgotPasswordScreen';
-
 export default function AuthStack() {
   const Stack = createNativeStackNavigator()
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/*<Stack.Screen options={{ headerShown: false}} name="Home" component={AuthScreen} />*/}
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LogInScreen} />
-        <Stack.Screen name="Sign Up" component={RegisterScreen} />
-        {/* <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} /> */}
+        <Stack.Screen name="Sign Up" options={{ headerShown: false }} component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

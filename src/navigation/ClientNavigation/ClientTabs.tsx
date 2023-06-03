@@ -10,7 +10,7 @@ const RootTabScreens = () => {
   const Tab = createBottomTabNavigator()
   return (
     <Tab.Navigator
-      initialRouteName={'Feed'}
+      initialRouteName={'Registrar'}
       // @ts-ignore
       screenOptions={styles.container}
     >
