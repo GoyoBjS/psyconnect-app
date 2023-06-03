@@ -8,7 +8,7 @@ const TermsAndConditions = () => {
       <View style={styles.subContainer}>
         <Text style={styles.text}>
           De vez en cuando aclaramos nuestros términos para que sean más fáciles de entender. Hoy (1
-          de septiembre de 2021) estamos actualizando nuestros términos para garantizar que nuestro
+          de junio de 2023) estamos actualizando nuestros términos para garantizar que nuestro
           lenguaje es claro, pero no estamos realizando ningún cambio significativo en el contenido
           de los términos relacionados con esta actualización. También hemos trasladado las
           Directrices de usuario a una página independiente que se puede encontrar aquí.

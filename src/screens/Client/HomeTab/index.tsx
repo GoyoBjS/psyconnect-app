@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={{ display: 'flex', flex: 1 }}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Buen día, {`${user}`}</Text>
+        <Text style={styles.title}>Buen día, {`${user}`}.</Text>
       </View>
       <View style={styles.cardsContainer}>
         <Pressable
