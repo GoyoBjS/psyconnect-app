@@ -1,14 +1,22 @@
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import useUser from '../../../hooks/useUser'
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('window').height
 
 const HomeScreen = ({ navigation }: any) => {
+  const { getUser } = useUser()
+  const [user, setUser] = useState('')
+  useEffect(() => {
+    getUser().then((data) => {
+      setUser(data?.name)
+    })
+  }, [])
   return (
     <View style={{ display: 'flex', flex: 1 }}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Buen día, Username</Text>
+        <Text style={styles.title}>Buen día, {`${user}`}</Text>
       </View>
       <View style={styles.cardsContainer}>
         <Pressable
