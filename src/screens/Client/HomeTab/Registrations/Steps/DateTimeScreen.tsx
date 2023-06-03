@@ -111,7 +111,7 @@ const DateTimeScreen = ({ data, setData, step, setStep, handleClose }: Props) =>
       {!showDateTime && (
         <View style={styles.subcontainer}>
           <Text style={styles.title}>Esperemos que esté todo bien</Text>
-          <Image source={require('../../../../../assets/thinking.png')} style={styles.image} />
+          <Image source={require('../../../../../assets/calendar.png')} style={styles.image} />
         </View>
       )}
 
@@ -252,8 +252,8 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   image: {
-    width: 250,
-    height: 250,
+    width: 280,
+    height: 280,
     alignSelf: 'center'
   },
   input: {
