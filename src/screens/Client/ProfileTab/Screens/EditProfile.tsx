@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
   },
   blurImg: {
     textAlign: 'center',
-
     opacity: 0.9
   },
   title: {

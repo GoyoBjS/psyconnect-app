@@ -1,4 +1,4 @@
-import { ScrollView, Text } from 'react-native'
+import { ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { feelings } from '../../../components/feelings'
 import { reasons } from '../../../components/reasons'
@@ -35,7 +35,6 @@ const EditRegisterScreen = ({
       )}
       {!showEditScreen && (
         <ScrollView>
-          <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 12 }}>Editar registro</Text>
           <ElementToModify
             data={data}
             setData={setData}
