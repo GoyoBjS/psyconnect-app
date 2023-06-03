@@ -31,7 +31,7 @@ const SolutionScreen = ({ setData, step, setStep, handleClose }: Props) => {
     />
   )
 
-  const headerComponent = (title: string) => <HeaderRegister title={title} />
+  const headerComponent = (title: string) => <HeaderRegister title={title} size={28} />
 
   return (
     <View style={styles.container}>
@@ -88,7 +88,7 @@ export default SolutionScreen
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#F5F5F5',
     marginTop: 12,
     marginBottom: 0,

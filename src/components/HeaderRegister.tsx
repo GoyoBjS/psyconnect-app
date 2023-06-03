@@ -1,15 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Ionicons } from '@expo/vector-icons'
 
 interface Props {
   title: string
+  size?: number
 }
-const HeaderRegister = ({ title }: Props) => {
+const HeaderRegister = ({ title, size }: Props) => {
   return (
     <View style={styles.titleContainer}>
-      <Ionicons name="arrow-back-outline" size={42} color="#3253FF" />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, { fontSize: size ? size : 36 }]}>{title}</Text>
     </View>
   )
 }
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 16,
-    paddingLeft: 10,
+    paddingLeft: 16,
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10
   },
