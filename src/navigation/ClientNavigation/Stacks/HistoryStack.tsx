@@ -7,21 +7,10 @@ const Stack = createNativeStackNavigator()
 
 const HistoryStack = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-    >
+    <Stack.Navigator>
       <Stack.Screen
         options={{
-          headerShown: false,
-          headerStyle: {
-            backgroundColor: '#f4511e'
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold'
-          }
+          headerShown: false
         }}
         name="Historial"
         component={HistoryScreen}
@@ -29,13 +18,7 @@ const HistoryStack = () => {
 
       <Stack.Screen
         options={{
-          headerStyle: {
-            backgroundColor: '#f4511e'
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold'
-          }
+          title: 'Editar registro'
         }}
         name="EditRegisterScreen"
         component={EditRegisterScreen}
