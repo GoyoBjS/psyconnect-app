@@ -6,7 +6,7 @@ import { AuthContext } from '../../../contexts/AuthContext'
 
 const ProfileScreen = () => {
   const { handleSignOut } = useContext(AuthContext)
-  const navigation = useNavigation()
+  const navigation: any = useNavigation()
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const UsuarioIcon = require('../../../assets/icons/UsuarioIcon.png')
@@ -16,55 +16,38 @@ const ProfileScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.blockContainer}>
+        <Text style={styles.title}>Ajustes</Text>
         <Text style={styles.subTitle}>Cuenta</Text>
 
         <Pressable onPress={() => navigation.navigate('EditProfile')} style={styles.linkContainer}>
           <View style={styles.iconAndTextContainer}>
-            <Image style={styles.arrowIcon} source={UsuarioIcon} />
+            <Image
+              style={{ width: 20, height: 20, tintColor: '#3253FF' }}
+              source={UsuarioIcon}
+              resizeMode="contain"
+              resizeMethod="resize"
+            />
             <Text style={styles.text}>Editar perfil</Text>
           </View>
-          <Image style={styles.arrowIcon} source={ArrowIcon} />
-        </Pressable>
-        <Pressable
-          onPress={() => navigation.navigate('ChangePassword')}
-          style={styles.linkContainer}
-        >
-          <View style={styles.iconAndTextContainer}>
-            <Image style={styles.arrowIcon} source={require('../../../assets/icons/Lock.png')} />
-            <Text style={styles.text}>Cambiar contraseña</Text>
-          </View>
-          <Image style={styles.arrowIcon} source={ArrowIcon} />
-        </Pressable>
-        <Pressable onPress={() => navigation.push('EditPreferences')} style={styles.linkContainer}>
-          <View style={styles.iconAndTextContainer}>
-            <Image style={styles.arrowIcon} source={require('../../../assets/icons/Lock.png')} />
-            <Text style={styles.text}>Modificar preferencias</Text>
-          </View>
-          <Image style={styles.arrowIcon} source={ArrowIcon} />
+          <Image
+            style={{ width: 20, height: 20, tintColor: '#3253FF' }}
+            source={ArrowIcon}
+            resizeMode="contain"
+            resizeMethod="resize"
+          />
         </Pressable>
       </View>
       <View style={styles.blockContainer}>
         <Text style={styles.subTitle}>Ayuda</Text>
-
-        <Pressable onPress={() => navigation.navigate('Inform')} style={styles.linkContainer}>
-          <View style={styles.iconAndTextContainer}>
-            <Image
-              style={styles.arrowIcon}
-              source={require('../../../assets/icons/Informar.png')}
-            />
-            <Text style={styles.text}>Informar de un problema</Text>
-          </View>
-          <Image style={styles.arrowIcon} source={ArrowIcon} />
-        </Pressable>
         <Pressable onPress={() => navigation.navigate('Contact')} style={styles.linkContainer}>
           <View style={styles.iconAndTextContainer}>
             <Image
-              style={styles.arrowIcon}
+              style={{ width: 20, height: 20, tintColor: '#3253FF' }}
               source={require('../../../assets/icons/Contacto.png')}
             />
             <Text style={styles.text}>Contacto</Text>
           </View>
-          <Image style={styles.arrowIcon} source={ArrowIcon} />
+          <Image style={{ width: 20, height: 20, tintColor: '#3253FF' }} source={ArrowIcon} />
         </Pressable>
       </View>
       <View style={styles.blockContainer}>
@@ -73,12 +56,12 @@ const ProfileScreen = () => {
         <Pressable onPress={() => navigation.navigate('Privacy')} style={styles.linkContainer}>
           <View style={styles.iconAndTextContainer}>
             <Image
-              style={styles.arrowIcon}
+              style={{ width: 20, height: 20, tintColor: '#3253FF' }}
               source={require('../../../assets/icons/Privacidad.png')}
             />
             <Text style={styles.text}>Privacidad</Text>
           </View>
-          <Image style={styles.arrowIcon} source={ArrowIcon} />
+          <Image style={{ width: 20, height: 20, tintColor: '#3253FF' }} source={ArrowIcon} />
         </Pressable>
         <Pressable
           onPress={() => navigation.navigate('TermsAndConditions')}
@@ -86,12 +69,12 @@ const ProfileScreen = () => {
         >
           <View style={styles.iconAndTextContainer}>
             <Image
-              style={styles.arrowIcon}
+              style={{ width: 20, height: 20, tintColor: '#3253FF' }}
               source={require('../../../assets/icons/Condiciones.png')}
             />
             <Text style={styles.text}>Condiciones de uso</Text>
           </View>
-          <Image style={styles.arrowIcon} source={ArrowIcon} />
+          <Image style={{ width: 20, height: 20, tintColor: '#3253FF' }} source={ArrowIcon} />
         </Pressable>
       </View>
 
@@ -109,18 +92,26 @@ export default ProfileScreen
 
 const styles = StyleSheet.create({
   container: {
+    // @ts-ignore
     backgroundColor: GlobalStyles.globalBackgroundColor,
-    paddingTop: 16
+    paddingTop: 16,
+    flex: 1,
+    display: 'flex'
   },
   blockContainer: {
     paddingRight: 32,
     paddingLeft: 32
   },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 36,
+    color: '#3253FF',
+    paddingBottom: 24
+  },
   subTitle: {
     fontWeight: 'bold',
-    fontSize: 24,
-    lineHeight: 24,
-    color: '#473261',
+    fontSize: 26,
+    color: '#3253FF',
     paddingBottom: 24
   },
   linkContainer: {
@@ -137,21 +128,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 18,
-    lineHeight: 22,
-    color: '#833AB4',
+    fontSize: 20,
+    color: '#677fff',
     paddingLeft: 16
-  },
-  arrowIcon: {
-    width: 16,
-    height: 16,
-    tintColor: '#473261'
   },
   closeSesion: {
     color: '#00B4D9',
     fontWeight: 'bold',
-    fontSize: 20,
-    lineHeight: 24,
+    fontSize: 24,
     textShadowColor: '#111',
     paddingLeft: 32
   },
@@ -163,6 +147,7 @@ const styles = StyleSheet.create({
     color: '#A2A3A4',
     fontWeight: '600',
     fontSize: 12,
-    lineHeight: 15
+    lineHeight: 15,
+    textAlign: 'center'
   }
 })
