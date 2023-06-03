@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 import React, { useState } from 'react'
 import { feelings } from '../../../components/feelings'
 import { reasons } from '../../../components/reasons'
@@ -9,8 +9,11 @@ import { solutions } from '../../../components/solutions'
 import SolutionScreen from '../HomeTab/Registrations/Steps/SolutionScreen'
 import DateTimeComponent from './components/DateTimeComponent'
 import DateTimeScreen from '../HomeTab/Registrations/Steps/DateTimeScreen'
+import { db } from '../../../config/firebase'
+import { deleteDoc, doc } from 'firebase/firestore'
 
 const EditRegisterScreen = ({
+  navigation,
   route: {
     params: { item }
   }
@@ -20,6 +23,16 @@ const EditRegisterScreen = ({
 
   const handlePress = (screenName: string) => setShowEditScreen(screenName)
   const handleClose = async () => setShowEditScreen('')
+
+  const deleteRegister = () => {
+    const updateElement = async () => {
+      await deleteDoc(doc(db, 'history', data?.id))
+    }
+    updateElement().then(() => {
+      setData(data)
+      navigation.goBack()
+    })
+  }
 
   return (
     <>
@@ -66,6 +79,9 @@ const EditRegisterScreen = ({
             handlePress={handlePress}
             styleData={solutions}
           />
+          <Pressable style={styles.deleteButton} onPress={deleteRegister}>
+            <Text style={styles.deleteButtonText}>Borrar Registro</Text>
+          </Pressable>
         </ScrollView>
       )}
     </>
@@ -73,3 +89,22 @@ const EditRegisterScreen = ({
 }
 
 export default EditRegisterScreen
+
+const styles = StyleSheet.create({
+  deleteButton: {
+    marginHorizontal: 16,
+    marginVertical: 32,
+    backgroundColor: '#ff2e40',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 32
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 'bold'
+  }
+})
