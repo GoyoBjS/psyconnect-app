@@ -41,7 +41,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             style={styles.input}
             value={value.email}
             onChangeText={(text) => setValue({ ...value, email: text })}
-            placeholderTextColor="#473261"
+            placeholderTextColor="#677fff"
             underlineColorAndroid="transparent"
             keyboardType="email-address"
             placeholder="Email"
@@ -52,7 +52,7 @@ const SignInScreen = ({ navigation }: { navigation: any }) => {
             onChangeText={(text) => setValue({ ...value, password: text })}
             value={value.password}
             placeholder="Contraseña"
-            placeholderTextColor="#473261"
+            placeholderTextColor="#677fff"
             underlineColorAndroid="transparent"
             keyboardType="default"
             secureTextEntry={true}
@@ -92,14 +92,14 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight ? 32 + StatusBar.currentHeight : 0
   },
   title: {
-    color: '#833AB4',
+    color: '#3253FF',
     fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 16
   },
   subtitle: {
-    color: '#A16AC7',
+    color: '#3253FF',
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 19,
     paddingHorizontal: 12,
-    color: '#473261',
-    backgroundColor: '#A296B0',
+    color: '#3253FF',
+    backgroundColor: '#b9d5ff',
     borderRadius: 10,
     textAlignVertical: 'center',
     fontSize: 16,
@@ -121,16 +121,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 16
   },
-  forgotPassword: {
-    color: '#833AB4',
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'right'
-  },
   helperText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#A16AC7',
+    color: '#3253FF',
     textAlign: 'center',
     marginVertical: 2
   },

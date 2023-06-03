@@ -22,8 +22,8 @@ const RegisterScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido</Text>
       <View style={styles.registerInputs}>
+        <Text style={styles.title}>Bienvenido</Text>
         <Text style={styles.label}>Nombre</Text>
         <TextInput
           placeholder="Nombre"
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16
   },
   title: {
-    color: '#833AB4',
-    fontSize: 36,
+    color: '#3253FF',
+    fontSize: 42,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 8
+    marginTop: 16
   },
   label: {
-    color: '#A16AC7',
+    color: '#3253FF',
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'left',
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 19,
     paddingHorizontal: 12,
-    color: '#473261',
-    backgroundColor: '#A296B0',
+    color: '#333',
+    backgroundColor: '#c3ccff',
     borderRadius: 10,
     textAlignVertical: 'center',
     fontSize: 16,
