@@ -12,9 +12,9 @@ export default StyleSheet.create({
     flex: 1,
     paddingVertical: 19,
     paddingHorizontal: 12,
-    color: '#473261',
+    color: '#333',
     backgroundColor: 'transparent',
-    borderColor: '#7D26E9',
+    borderColor: '#3253FF',
     borderWidth: 1.5,
     borderRadius: 10,
     textAlignVertical: 'center',
@@ -46,7 +46,7 @@ export default StyleSheet.create({
   },
   //  @ts-ignore
   submitButtonGlobal: ({ pressed }: any) => ({
-    backgroundColor: pressed ? '#A873CB' : '#833AB4',
+    backgroundColor: pressed ? '#4a67ff' : '#3253FF',
     borderRadius: pressed ? 16 : 10,
     paddingVertical: 19,
     textAlign: 'center'
