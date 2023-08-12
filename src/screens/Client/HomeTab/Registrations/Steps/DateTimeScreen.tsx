@@ -34,6 +34,7 @@ const DateTimeScreen = ({ data, setData, step, setStep, handleClose }: Props) =>
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
   const onChangeDate = (event: DateTimePickerEvent, date: Date) => {
+    setShowDatePicker(false)
     const {
       nativeEvent: { timestamp }
     } = event
@@ -42,10 +43,10 @@ const DateTimeScreen = ({ data, setData, step, setStep, handleClose }: Props) =>
       ...prevData,
       date: extractDateFromTimestamp(timestamp!)
     }))
-    setShowDatePicker(false)
   }
 
   const onChangeTime = (event: DateTimePickerEvent, date: Date) => {
+    setShowTimePicker(false)
     const {
       nativeEvent: { timestamp }
     } = event
@@ -54,10 +55,10 @@ const DateTimeScreen = ({ data, setData, step, setStep, handleClose }: Props) =>
       ...prevData,
       time: extractTimeFromTimestamp(timestamp!)
     }))
-    setShowTimePicker(false)
   }
 
   const onSubmit = () => {
+    setShowDateTime(false)
     if (!data?.date) {
       setData((prevData: QuickRegistrationDataType) => ({
         ...prevData,
@@ -72,7 +73,6 @@ const DateTimeScreen = ({ data, setData, step, setStep, handleClose }: Props) =>
     }
     if (handleClose) handleClose()
     if (step && setStep) setStep(step + 1)
-    setShowDateTime(false)
   }
 
   return (
@@ -83,6 +83,7 @@ const DateTimeScreen = ({ data, setData, step, setStep, handleClose }: Props) =>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
+              setShowDateTime(false)
               const time = extractTimeFromTimestamp(new Date().getTime())
               const date = extractDateFromTimestamp(new Date().getTime())
 
@@ -93,7 +94,6 @@ const DateTimeScreen = ({ data, setData, step, setStep, handleClose }: Props) =>
               }))
               if (handleClose) handleClose()
               if (step && setStep) setStep(step + 1)
-              setShowDateTime(false)
             }}
           >
             <Text style={styles.buttonText}>Ahora mismo</Text>
